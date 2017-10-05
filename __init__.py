@@ -36,16 +36,23 @@ def createCourses():
 @csrf.exempt
 def createCoursesPost():
   my_form = SimpleForm()
+  # Check that the user has filled something
   if my_form.my_field.data is None: 
     return(render_template('tes_con.html'))
+  # Load the users course combination choices
   data = None
-  with open('static/course_combinations.json', 'r') as comb:
-    data = json.load(comb)
-  with open('static/course_combinations.json', 'w') as comb:
+  course_comb_path = 'static/course_combinations.json'
+  if not os.path.isfile(course_comb_path):
+    data = []
+  else:
+    with open(course_comb_path, 'r') as comb:
+      data = json.load(comb)
+  # Add the new choice
+  with open(course_comb_path, 'w') as comb:
     data.append(my_form.my_field.data)
     json.dump(data, comb)
+  # Generate the user URL
   comb_number = str(len(data)-1).zfill(6)
-  print("comb_number : ", comb_number)
   url = 'http://lucienetleon.hopto.org/pa?id=' + comb_number
   return(render_template('page_url.html', url=url, comb_number=comb_number))
 
