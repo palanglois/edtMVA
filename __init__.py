@@ -16,6 +16,7 @@ from coursList import coursList
 app = Flask(__name__)
 csrf = CSRFProtect(app)
 app.secret_key = 's3cr3t'
+here = os.path.dirname(__file__)
 
 
 class MultiCheckboxField(SelectMultipleField):
@@ -41,7 +42,7 @@ def createCoursesPost():
     return(render_template('tes_con.html'))
   # Load the users course combination choices
   data = None
-  course_comb_path = 'static/course_combinations.json'
+  course_comb_path = os.path.join(here, 'static/course_combinations.json')
   if not os.path.isfile(course_comb_path):
     data = []
   else:
@@ -63,7 +64,8 @@ def paEdt():
   data, correct = matchId(int(identifier))
   if not correct:
     return(render_template('wrong_id.html'))
-  last_update_time = datetime.datetime.fromtimestamp(os.path.getmtime('static/edt.csv')).strftime("%Y-%m-%d %H:%M:%S")
+  edt_path = os.path.join(here, 'static/edt.csv')
+  last_update_time = datetime.datetime.fromtimestamp(os.path.getmtime(edt_path)).strftime("%Y-%m-%d %H:%M:%S")
   return(render_template('edt.html', **{'listCours' : data, 'last_time' : last_update_time}))
 
 @app.route("/robots.txt")
