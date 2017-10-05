@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <link href="/static/css/course_creator.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <link href="/static/css/edtStyle.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+</head>
+
+<h1>Selectionnez vos cours</h1>
+{% from "_formhelpers.html" import render_field %}
+<form method=post>
+  {% for course in form.my_field %}
+    {{render_field(course)}}
+    <br/><br/>
+  {% endfor %}
+  <p><input type=submit value=Validez>
+</form>
+
+</html>

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Cours MVA</title>
+</head>
+
+<!-- CSS  -->
+<link href="/static/css/edtStyle.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+
+<h1>Cours MVA</h1>
+<table class="rwd-table">
+  {% for cours in listCours %}
+  <tr>
+    <th>{{cours.title}}</th>
+    <th>{{cours.day}}</th>
+    <th>{{cours.hour}}</th>
+    <th>{{cours.room}}</th>
+    <th>{{cours.week}}</th>
+  </tr>
+  {% endfor %}
+</table>
+
+Dernière mise à jour : {{last_time}}
