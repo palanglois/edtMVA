@@ -10,7 +10,7 @@ import csv
 import sys
 import json
 import datetime
-from readEdt import parseEdt, matchId
+from readEdt import matchId
 from coursList import coursList
 
 app = Flask(__name__)
