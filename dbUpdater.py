@@ -8,17 +8,19 @@ from datetime import datetime
 import urllib
 import cPickle as pickle
 import threading
+import os
 
+here = os.path.dirname(__file__)
 
 #Function to download the csv file containing the schedule
 def downloadEdt():
-    urllib.urlretrieve("https://docs.google.com/spreadsheets/d/1yS1SKXenOvwjYRHxeAFPPsW9xgGPuBMjh0O4XBIyWHA/gviz/tq?tqx=out:csv", "static/edt.csv")
+    urllib.urlretrieve("https://docs.google.com/spreadsheets/d/1yS1SKXenOvwjYRHxeAFPPsW9xgGPuBMjh0O4XBIyWHA/gviz/tq?tqx=out:csv", os.path.join(here, "static/edt.csv"))
 
 
 #Parse the obtained csv file and get relevant courses for the person 'name'
 def parseEdt():
   myEdt = []
-  with open('static/edt.csv','r') as csvfile:
+  with open(os.path.join(here, 'static/edt.csv'),'r') as csvfile:
     reader = csv.reader(csvfile)
     data = []
     for row in reader:
@@ -79,7 +81,7 @@ def dl_parse_and_save_edt():
   print('Starting update - %s' % datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
   downloadEdt()
   data = parseEdt()
-  pickle.dump(data,open( "static/parsedEdt.pkl", "wb" ))
+  pickle.dump(data,open(os.path.join(here, "static/parsedEdt.pkl"), "wb" ))
   print('Update done.\n')
   nb_minutes = 15.
   threading.Timer(nb_minutes*60., dl_parse_and_save_edt).start()
