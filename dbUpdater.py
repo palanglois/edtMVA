@@ -53,7 +53,7 @@ def parseEdt():
               curCourseDate = copy.deepcopy(courseDayDate)
               curCourseDate = curCourseDate.replace(hour=int(data[innerIterator][dayColumn][0:2]))
               curCourseDate = curCourseDate.replace(minute=int(data[innerIterator][dayColumn][3:5]))
-              if curCourseDate < datetime.now().replace(hour=datetime.now().hour - 1):
+              if curCourseDate < datetime.now().replace(hour=max(0, datetime.now().hour - 1)):
                 continue
               courseTitle = data[innerIterator + 1][dayColumn]
               courseHour = data[innerIterator][dayColumn]
