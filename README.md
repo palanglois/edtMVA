@@ -4,6 +4,7 @@ Dependencies :
 * Flask
 * flask-wtf : `sudo -H python -m pip install flask-wtf` 
 * flask\_appbuilder : `sudo -H python -m pip install flask_appbuilder` 
+* dateparser `sudo -H python -m pip install dateparser`
 
 # How to develop
 
